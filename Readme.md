@@ -56,7 +56,7 @@ This file describes locations of data and parameters for optimization. It divide
 ### Mandatory sections
 #### [Initial Guess]
 
-Provide here starting values for the variables you want to optimize. The variables names must be consistent with these in templates for PRISMS parameter files (as detailed [here](step-by-step-method-to-run-optimization)).
+Provide here starting values for the variables you want to optimize. The variables names must be consistent with these in templates for PRISMS parameter files (as detailed [here](#step-by-step-method-to-run-optimization)).
 
 #### [Bounds]
 
