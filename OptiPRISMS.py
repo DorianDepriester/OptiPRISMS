@@ -51,7 +51,7 @@ def remove_data(path, debug=True):
                 print("Error: %s - %s." % (e.filename, e.strerror))
 
 
-def runOptim(config_file='Config.ini'):
+def optimize(config_file='Config.ini'):
     """
     Run optimization loops.
     
@@ -99,15 +99,15 @@ def runOptim(config_file='Config.ini'):
         module = importlib.import_module('scipy.optimize')
         minimizer = module.minimize
 
-    res = minimizer(runAndCompare, x0n, **kwargs)
+    res = minimizer(run_and_compare, x0n, **kwargs)
 
-    # Restore the optimized parameters into unnormalized form 
+    # Restore the optimized parameters into un-normalized form
     res.x = lb + res.x * (ub - lb)
     res.jac = res.jac * (ub - lb)
     return res
 
 
-def runAndCompare(pn, config):
+def run_and_compare(pn, config):
     """
     From normalized array of parameters, generate input file for 
     PRISMS-Plasticity, run it, compute the cost function and return the
@@ -115,8 +115,8 @@ def runAndCompare(pn, config):
 
     Parameters
     ----------
-    pn : array
-        Noramilzed array of parameters to be used for PRISMS-Plasticity. This
+    pn : numpy.ndarray
+        Normalized array of parameters to be used for PRISMS-Plasticity. This
         array is normalized with respect to the bounds.
     config : configparser.ConfigParser
         Configuration data, parsed by configparser
@@ -127,7 +127,7 @@ def runAndCompare(pn, config):
         Scalarized cost function to be minimized
 
     """
-    # Restore the parameters into their initial (unnormalized) form
+    # Restore the parameters into their initial (un-normalized) form
     lb, ub = read_bounds(config)
     dom_size = ub - lb
     p = lb + pn * dom_size
@@ -140,7 +140,7 @@ def runAndCompare(pn, config):
         # It seems that the default value for the absolute tolerance is 1e-8
         eps_jac = 1e-8
 
-    # First, look in log file if this simlation has been run before
+    # First, look in log file if this simulation has been run before
     logfile = config['Log File']['file path']
     chi_names = ['chi_u', 'chi_f', 'chi']
     col_names = list(config['Initial Guess'].keys()) + chi_names
@@ -170,9 +170,9 @@ def runAndCompare(pn, config):
     else:
         # Otherwise, run this simulation and compute the cost function
 
-        # Generate a dictionnary from the parameters
+        # Generate a dictionary from the parameters
         d = dict(zip(config['Initial Guess'].keys(), p))
-        prm_name, LH_name, fname = CfgGenerator(d, config)
+        prm_name, lh_name, fname = CfgGenerator(d, config)
 
         # Run simulation and wait till the end
         if config.has_option('Slurm', 'use Slurm') and config.getboolean('Slurm', 'use Slurm'):
@@ -196,7 +196,7 @@ def runAndCompare(pn, config):
 
         # Remove conf files and results
         debug = config.has_option('Debug', 'fake deletions') and config.getboolean('Debug', 'fake deletions')
-        remove_data(LH_name, debug=debug)
+        remove_data(lh_name, debug=debug)
         remove_data(prm_name, debug=debug)
         remove_data(fname, debug=debug)
 
