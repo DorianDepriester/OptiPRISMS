@@ -1,0 +1,175 @@
+# Listing of Parameters
+# ---------------------
+
+####################################
+# FE parameters
+####################################
+# Basis function interpolation order (1-linear)
+set Order of finite elements                     = 1
+
+# Quadrature point order n^3 (2->8 quadrature points)
+set Order of quadrature                          = 2
+
+####################################
+# Domain parameters
+####################################
+# Number of physical dimensions for the simulation
+set Number of dimensions                         = 3
+
+# The size of the domain in the x direction.
+set Domain size X                                = 151.69441964
+
+# The size of the domain in the y direction.
+set Domain size Y                                = 91.371553991
+
+# The size of the domain in the z direction.
+set Domain size Z                                = 2.0
+
+####################################
+# Mesh parameters
+####################################
+#Flag to indicate whether to use external mesh
+set Use external mesh                            = true
+
+#Name of external mesh file
+set Name of file containing external mesh        = mesh_grad_DIC53.msh
+
+#The external mesh parameter: The ratio of defiend region size to the Domain size
+set External mesh parameter        = 0.0001
+
+####################################
+# Solver output parameters
+####################################
+# Flag to write output vtu and pvtu files
+set Write Output                                 = true
+
+# Output Directory
+# Need to create directory before using this. Will be corrected in future versions of the software
+set Output Directory                             = $results
+
+# Skip Output Steps
+# set Skip Output Steps                            = 10
+set Tabular Output 				 = true
+set Tabular Time Output Table			 		= 1,2,2.809
+
+# Output Equivalent strain
+set Output Equivalent strain                     = true
+
+# Output Equivalent stress
+set Output Equivalent stress                     = true
+
+# Output Grain ID
+set Output Grain ID                              = true
+
+# Output Twin fractions
+set Output Twin fractions                        = false
+
+set Write Quadrature Output = true
+# set Skip Quadrature Output Steps = 10
+
+####################################
+# Boundary condition information
+####################################
+set Use Simple BCs = false
+set Use DIC pipeline = true
+set Number of Input data for DIC experiment= 5
+set DIC Time Table =0,1,2,3,4
+set Number of Points in DIC input in X direction = 758
+set Number of Points in DIC input in Y direction = 456
+set DIC Boundary condition filename 1 = BC/CL_Xmin.txt
+set DIC Boundary condition filename 2 = BC/CL_Xmax.txt
+set DIC Boundary condition filename 3 = BC/CL_Ymin.txt
+set DIC Boundary condition filename 4 = BC/CL_Ymax.txt
+
+
+####################################
+# Solver parameters
+####################################
+#delta T for every increment
+set Time increments                              = 0.0005
+
+#Total simulation time
+set Total time                                   = 4
+
+# Maximum iterations for linear solver
+set Maximum linear solver iterations             = 50000
+
+# Relative linear solver tolerance
+set Relative linear solver tolerance             = 1.0e-10
+
+# Maximum no. of non-linear iterations
+set Maximum non linear iterations                = 4
+
+# Non-linear solver tolerance
+set Absolute nonLinear solver tolerance          = 1.0e-18
+
+# Relative non-linear solver tolerance
+set Relative nonLinear solver tolerance          = 1.0e-3
+
+####################################
+# Elasticity parameters
+####################################
+
+#   Elastic Stiffness Matrix -Voigt Notation (MPa)
+set Elastic Stiffness row 1                      = 170.0e3, 124.0e3, 124.0e3, 0, 0, 0
+
+# 	Elastic Stiffness Matrix -Voigt Notation (MPa)
+set Elastic Stiffness row 2                      = 124.0e3, 170.0e3, 124.0e3, 0, 0, 0
+
+# 	Elastic Stiffness Matrix -Voigt Notation (MPa)
+set Elastic Stiffness row 3                      = 124.0e3, 124.0e3, 170.0e3, 0, 0, 0
+
+# 	Elastic Stiffness Matrix -Voigt Notation (MPa)
+set Elastic Stiffness row 4                      = 0, 0, 0, 75.0e3, 0, 0
+
+# 	Elastic Stiffness Matrix -Voigt Notation (MPa)
+set Elastic Stiffness row 5                      = 0, 0, 0, 0, 75.0e3, 0
+
+# 	Elastic Stiffness Matrix -Voigt Notation (MPa)
+set Elastic Stiffness row 6                      = 0, 0, 0, 0, 0, 75.0e3
+
+####################################
+# Slip parameters
+####################################
+# Number of Slip Systems
+set Number of Slip Systems                       = 12
+
+# Latent Hardening Ratio
+set Latent Hardening Ratio filename              = $LH_name
+
+# RSS of the slip sytems
+set Initial Slip Resistance                      = $s0, $s0, $s0, $s0, $s0, $s0, $s0, $s0, $s0, $s0, $s0, $s0
+
+# Heardening moduli of slip systems
+set Initial Hardening Modulus                    = $h0, $h0, $h0, $h0, $h0, $h0, $h0, $h0, $h0, $h0, $h0, $h0
+
+# Power law coefficient
+set Power Law Exponent                           = $alpha, $alpha, $alpha, $alpha, $alpha, $alpha, $alpha, $alpha, $alpha, $alpha, $alpha, $alpha 
+
+# Saturation stress
+set Saturation Stress                            = $sinf, $sinf, $sinf, $sinf, $sinf, $sinf, $sinf, $sinf, $sinf, $sinf, $sinf, $sinf
+
+# Slip Directions File
+set Slip Directions File                         = slipDirections.txt
+
+# Slip Normals File
+set Slip Normals File                            = slipNormals.txt
+
+####################################
+# Constitutive model parameters
+####################################
+# Stress tolerance for the yield surface (MPa)
+set Stress Tolerance                             = 1.0e-6
+
+# Maximum no. of active slip search iterations
+set Max Slip Search Iterations                   = 1
+
+# Maximum no. of iterations to achieve non-linear convergence
+set Max Solver Iterations                        = 1
+
+####################################
+# Input microstructure
+####################################
+# Grain orientations file name
+set Orientations file name                       = Copper-dic.txt
+
