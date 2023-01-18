@@ -6,8 +6,8 @@ Perform inverse analysis to retrieve Crystal Plasticity parameters used for CPFE
 
 This program will optimize CP parameters in order to minimize a given cost function. At each step of the optimization process, it will:
 
-1. generate configuration files for PRISMS-Pasticity;
-2. run PRISMS-Pasticity from these files;
+1. generate configuration files for PRISMS-Plasticity;
+2. run PRISMS-Plasticity from these files;
 3. read results and compare them against experimental data;
 4. return a cost function, evidencing *how far* the simulation is, compared to the experiment,
 5. remove simulation files.
@@ -25,22 +25,22 @@ Records for each optimization loop will be stored in a log file, so that the use
     - a macroscopic tensile curve (strain-stress values as a CSV file),
 	- SEM-DIC displacement measurements, stored as tabular data.
 	
-The latter must be formated as column data, in this order:
+The latter must be formatted as column data, in this order:
 1. x coordinates of DIC points where DIC measurements are performed,
 2. y coordinates of DIC points where DIC measurements are performed,
 3. x displacements at 1st step,
-3. y displacements at 1st step,
-4. correlation coefficients at 1st step,
-5. x displacements at 2nd step,
-6. y displacements at 2nd step,
-7. correlation coefficients at 2nd step
+4. y displacements at 1st step,
+5. correlation coefficients at 1st step,
+6. x displacements at 2nd step,
+7. y displacements at 2nd step,
+8. correlation coefficients at 2nd step
 
 and so on.
 
 ## Step-by-step method to run optimization
 
 1. Check out the template files (under the eponymous folder) and give a proper name to every parameter you want to optimize. These names must be precessed by a "$" symbol (e.g. "$a" instead of "a").
-2. Be sure that common parameters (e.g. path to mesh file, time increement, etc.) in template files fit with your needs.
+2. Be sure that common parameters (e.g. path to mesh file, time increment, etc.) in template files fit with your needs.
 3. Edit the [configuration file] to tune optimization-related parameters.
 4. With Python3, run the ``OptiPRISMS`` function. E.g.:
 ````
@@ -66,7 +66,7 @@ Provide here starting values for the variables you want to optimize. The variabl
 #### [PRISMS]
 
 - **prm file**: path to the main parameter file template
-- **latent hardening ratio** : path to latent hardening ratio tempalte
+- **latent hardening ratio** : path to latent hardening ratio template
 - **path to prisms**= path to PRISMS-Plasticity executable file. This entry is not required if Slurm is used (see [\[Slurm\]] section).
 
 #### [Experimental Data]
