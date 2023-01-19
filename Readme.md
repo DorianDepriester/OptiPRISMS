@@ -18,7 +18,7 @@ Records for each optimization loop will be stored in a log file, so that the use
 
 ## Required materials
 
-- The mesh of the microstructure (in .msh format). One can use [MTEX2Gmsh](https://doriandepriester.github.io/MTEX2Gmsh/) [[2]](#mtex2gmsh) to generate a conforming mesh directly from EBSD data.
+- The mesh of the microstructure (in .msh format). One can use [MTEX2Gmsh](https://github.com/DorianDepriester/MTEX2Gmsh/blob/master/MTEX2prisms/MTEX2PRISMS.pdf) [[2]](#mtex2gmsh) to generate a conforming mesh directly from EBSD data.
 - [PRISMS-Plasticity software](https://github.com/prisms-center/plasticity).
 - Python 3.6 (or later) with the following modules: numpy, scipy, vtk, pandas
 - Experimental data, consisting in:
