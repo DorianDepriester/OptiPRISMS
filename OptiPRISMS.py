@@ -165,7 +165,7 @@ def run_and_compare(pn, config):
         else:
             mat = prev.to_numpy()
             matn = (mat[:, :n_p] - lb) / dom_size
-            existing = np.all(np.isclose(matn, pn, atol=eps_jac / 2), axis=1)
+            existing = np.all(np.isclose(matn, pn, atol=eps_jac / 10, rtol=0.), axis=1)
             cost = mat[existing, -1]
 
     if cost.size != 0:
