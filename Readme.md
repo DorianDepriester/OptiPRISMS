@@ -88,7 +88,7 @@ Provide here starting values for the variables you want to optimize. The variabl
 
 #### [Minimize]
 
-Pass here any optional parameter(s) for the ``options`` argument of ``minimize_parallel``. See [the options for ``scipy.optimize.minimize`` with L-BFGS-B method for available arguments](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html#optimize-minimize-lbfgsb).
+Pass here any optional parameter(s) for the ``options`` argument of `scipy.optimize.minimize`. See [the options for ``scipy.optimize.minimize`` with L-BFGS-B method for available arguments](https://docs.scipy.org/doc/scipy/reference/optimize.minimize-lbfgsb.html#optimize-minimize-lbfgsb).
 
 #### [Minimize parallel]
 
