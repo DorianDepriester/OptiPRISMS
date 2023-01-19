@@ -43,13 +43,13 @@ def compute_kine_cost(result_folder, config):
         nodes, u_SIM = readPointsFrom_pvtu(pvtu_fname)
     
         if nodes is None:
-            # It seems that the simulation has failed, raise penaly value
+            # It seems that the simulation has failed, raise penalty value
             chi_u = float(cost_options['penalty'])
             n_steps = 1
             break
             
         else:
-            # Associate each DIC measurment to a unique node
+            # Associate each DIC measurement to a unique node
             u_SIM_tri, inside_mesh = triangular_projection(nodes, u_SIM, pts_DIC)
             
             # Remove DIC locations which are too far from mesh nodes
