@@ -20,7 +20,7 @@ def read_pvtu(filename):
         for piece in root[0].iter('Piece'):
             vtk_file = piece.attrib['Source']
             # Read individual vtk files
-            reader.SetFileName('{}/{}'.format(folder_name, vtk_file))
+            reader.SetFileName(os.path.join(folder_name, vtk_file))
             reader.Update()
             data = reader.GetOutput()
             points = data.GetPoints()
