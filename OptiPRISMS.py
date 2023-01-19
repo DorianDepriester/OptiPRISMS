@@ -108,7 +108,7 @@ def optimize(config_file='Config.ini'):
 
     # Plus, provide the estimated hessian
     h = np.linalg.inv(res.hess_inv.todense())
-    res.hess = np.matmul(h, np.outer(k, k))
+    res.hess = h * np.outer(k, k)
 
     return res
 
