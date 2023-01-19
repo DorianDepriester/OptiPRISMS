@@ -42,7 +42,7 @@ and so on.
 1. Check out the template files (under the eponymous folder) and give a proper name to every parameter you want to optimize. These names must be precessed by a "$" symbol (e.g. "$a" instead of "a").
 2. Be sure that common parameters (e.g. path to mesh file, time increment, etc.) in template files fit with your needs.
 3. Edit the [configuration file] to tune optimization-related parameters.
-4. With Python3, run the `optimize` from `OptiPRISMS` module. E.g.:
+4. With Python3, run the `optimize` function from `OptiPRISMS` module. E.g.:
 ```python
 from OptiPRISMS import optimize
 res = optimize(config_file='myConfigFile.ini')
@@ -101,12 +101,12 @@ In addition, any keyword argument normally passed to the `parallel` option of `m
 #### [Slurm]
 
 - **use Slurm**: whether to use the Slurm workload manager. Default is No.
-- **batch file**: path to batch file to use for submitting a job running PRISMS-Pasticity. The path to the prm file will be passed as the first argument of this script.
+- **batch file**: path to batch file to use for submitting a job running PRISMS-Plasticity. The path to the prm file will be passed as the first argument of this script.
 
 #### [Debug]
 
 - **fake simulations**: If Yes, each simulation is not computed. The related commands are printed instead. Default is No.
-- **fake deletions**: Turn off automatic removal of simulation results (step 5 in [How it works] section). Default is No.
+- **fake deletions**: Turn off automatic removal of simulation results (step 5 in [How it works](#how-it-works) section). Default is No.
 
 ## References
 <a id="prisms">[1]</a> Yaghoobi et al., (2019). Prisms-plasticity: An open-source crystal plasticity finite element software. Computational Materials Science, 169:109078, https://doi.org/10.1016/j.commatsci.2019.109078
