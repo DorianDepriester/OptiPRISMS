@@ -150,14 +150,7 @@ def run_and_compare(pn, config):
     logfile = config['Log File']['file path']
     chi_names = ['chi_u', 'chi_f', 'chi']
     col_names = list(config['Initial Guess'].keys()) + chi_names
-    df0 = pd.DataFrame(columns=col_names)
-    if (not os.path.exists(logfile)) or os.stat(logfile).st_size == 0:
-        # File does not exist or is empty
-        df0.to_csv(logfile, index=False)
-        cost = np.array([])
-    else:
-        # Previous results have been found in logfile, then check if the 
-        # considered simulation exists
+    try:
         prev = pd.read_csv(logfile)
         if prev.size == 0:
             # Only the header is present
@@ -167,15 +160,14 @@ def run_and_compare(pn, config):
             matn = (mat[:, :n_p] - lb) / dom_size
             existing = np.all(np.isclose(matn, pn, atol=eps_jac / 10, rtol=0.), axis=1)
             cost = mat[existing, -1]
+    except (pd.errors.EmptyDataError, FileNotFoundError):
+        cost = np.array([])
 
     if cost.size != 0:
-        # If the simulation was run before, just return the related cost 
-        # function
+        # If the simulation was run before, just return the related cost function
         return cost[0]
-
     else:
         # Otherwise, run this simulation and compute the cost function
-
         # Generate a dictionary from the parameters
         d = dict(zip(config['Initial Guess'].keys(), p))
         prm_name, lh_name, fname = CfgGenerator(d, config)
@@ -194,7 +186,6 @@ def run_and_compare(pn, config):
             execute = print
         else:
             execute = os.system
-
         execute(cmd)
 
         # Compute the cost function
@@ -209,7 +200,11 @@ def run_and_compare(pn, config):
         # Append the cost functions to the log file
         a = np.concatenate((p, np.array([chis['chi_u'], chis['chi_f'], chis['chi']])))
         df = pd.DataFrame(data=[a], columns=col_names)
-        df.to_csv(logfile, mode='a', index=False, header=False)
+        try:
+            _ = pd.read_csv(logfile)
+            df.to_csv(logfile, index=False, header=False, mode='a')
+        except (pd.errors.EmptyDataError, FileNotFoundError):
+            df.to_csv(logfile, index=False)
 
         # Return the function to be minimized
         return chis['chi']
