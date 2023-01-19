@@ -37,13 +37,16 @@ def compute_kine_cost(result_folder, config):
         raise ValueError(err_msg)
 
     chi_u = 0
+    n_steps = len(time_steps)
     for step, step_simu in enumerate(time_steps):
         pvtu_fname = "{}/solution-{:04}.pvtu".format(result_folder, step_simu)
         nodes, u_SIM = readPointsFrom_pvtu(pvtu_fname)
     
         if nodes is None:
             # It seems that the simulation has failed, raise penaly value
-            return float(cost_options['penalty'])
+            chi_u = float(cost_options['penalty'])
+            n_steps = 1
+            break
             
         else:
             # Associate each DIC measurment to a unique node
@@ -55,7 +58,7 @@ def compute_kine_cost(result_folder, config):
             C = dataDIC[inside_mesh, 3*step+4]
             chi_u += kinematic_cost_function(u_SIM_tri[:, :2], u_DIC, weights=C)
   
-        return chi_u/len(time_steps)
+    return chi_u/n_steps
 
 
 def compute_stat_cost(result_folder, config):
