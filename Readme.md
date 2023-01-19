@@ -42,12 +42,11 @@ and so on.
 1. Check out the template files (under the eponymous folder) and give a proper name to every parameter you want to optimize. These names must be precessed by a "$" symbol (e.g. "$a" instead of "a").
 2. Be sure that common parameters (e.g. path to mesh file, time increment, etc.) in template files fit with your needs.
 3. Edit the [configuration file] to tune optimization-related parameters.
-4. With Python3, run the ``OptiPRISMS`` function. E.g.:
-````
-from OptiPRISMS import runOptim
-
-res = runOptim(config_file='myConfigFile.ini')
-````
+4. With Python3, run the `optimize` from `OptiPRISMS` module. E.g.:
+```python
+from OptiPRISMS import optimize
+res = optimize(config_file='myConfigFile.ini')
+```
 
 ## Configuration file
 
@@ -68,13 +67,13 @@ Provide here starting values for the variables you want to optimize. The variabl
 
 - **prm file**: path to the main parameter file template
 - **latent hardening ratio** : path to latent hardening ratio template
-- **path to prisms**= path to PRISMS-Plasticity executable file. This entry is not required if Slurm is used (see [\[Slurm\]] section).
+- **path to prisms**: path to PRISMS-Plasticity executable file. This entry is not required if Slurm is used (see [\[Slurm\]] section).
 
 #### [Experimental Data]
 
 - **DIC data**: path to text file with DIC measurements
 - **tensile curve**: path to strain-stress values of tensile curve
-- **time steps** *(optional)*: increment numbers corresponding to each step of DIC measurements. If not set, they will infered from option ``set Tabular Time Output Table`` in prm template.
+- **time steps** *(optional)*: increment numbers corresponding to each step of DIC measurements. If not set, they will inferred from option `set Tabular Time Output Table` in prm template.
 
 #### [Cost Function]
 
@@ -95,9 +94,9 @@ Pass here any optional parameter(s) for the ``options`` argument of ``minimize_p
 
 This section allows to use a parallel implementation of the L-BFGS-B minimizer [[3]](#optim_parallel), through the ``minimize_parallel`` function (from [``optimparallel``](https://github.com/florafauna/optimParallel-python) module).
 
-- **use parallel minimizer**: whether to use ``minimize_parallel``, instead of ``scipy.optimize.minimize`` (default is No)
+- **use parallel minimizer**: whether to use `minimize_parallel`, instead of `scipy.optimize.minimize` (default is No)
 
-In addition, any keyword argument normally passed to the ``parallel`` option of ``minimize_parallel`` can be defined in this section. See [the related documentation](https://github.com/florafauna/optimParallel-python/blob/8bf622be1431ba10fef1d795521a2b1d86307c9d/src/optimparallel.py#L170) for available options.
+In addition, any keyword argument normally passed to the `parallel` option of `minimize_parallel` can be defined in this section. See [the related documentation](https://github.com/florafauna/optimParallel-python/blob/8bf622be1431ba10fef1d795521a2b1d86307c9d/src/optimparallel.py#L170) for available options.
 
 #### [Slurm]
 
