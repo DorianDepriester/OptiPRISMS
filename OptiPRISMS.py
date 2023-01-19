@@ -151,6 +151,7 @@ def run_and_compare(pn, config):
     chi_names = ['chi_u', 'chi_f', 'chi']
     col_names = list(config['Initial Guess'].keys()) + chi_names
     try:
+        # Try to read log file
         prev = pd.read_csv(logfile)
         if prev.size == 0:
             # Only the header is present
