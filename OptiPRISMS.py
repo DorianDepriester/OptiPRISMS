@@ -102,8 +102,14 @@ def optimize(config_file='Config.ini'):
     res = minimizer(run_and_compare, x0n, **kwargs)
 
     # Restore the optimized parameters into un-normalized form
-    res.x = lb + res.x * (ub - lb)
-    res.jac = res.jac * (ub - lb)
+    k = ub - lb
+    res.x = lb + res.x * k
+    res.jac = res.jac / k
+
+    # Plus, provide the estimated hessian
+    h = np.linalg.inv(res.hess_inv.todense())
+    res.hess = np.matmul(h, np.outer(k, k))
+
     return res
 
 
