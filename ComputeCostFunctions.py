@@ -2,7 +2,7 @@ import numpy as np
 import configparser, itertools
 from costFunctions import kinematic_cost_function, static_cost_function, weighted_cost_function
 from triangulate import triangular_projection
-from vtk_utils import readPointsFrom_pvtu
+from vtk_utils import read_pvtu
 
 
 def unpack_str_list(list, dtype=float):
@@ -40,7 +40,7 @@ def compute_kine_cost(result_folder, config):
     n_steps = len(time_steps)
     for step, step_simu in enumerate(time_steps):
         pvtu_fname = "{}/solution-{:04}.pvtu".format(result_folder, step_simu)
-        nodes, u_SIM = readPointsFrom_pvtu(pvtu_fname)
+        nodes, u_SIM = read_pvtu(pvtu_fname)
     
         if nodes is None:
             # It seems that the simulation has failed, raise penalty value
