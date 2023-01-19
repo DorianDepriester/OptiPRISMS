@@ -20,7 +20,7 @@ Records for each optimization loop will be stored in a log file, so that the use
 
 - The mesh of the microstructure (in .msh format). One can use [MTEX2Gmsh](https://github.com/DorianDepriester/MTEX2Gmsh/blob/master/MTEX2prisms/MTEX2PRISMS.pdf) [[2]](#mtex2gmsh) to generate a conforming mesh directly from EBSD data.
 - [PRISMS-Plasticity software](https://github.com/prisms-center/plasticity).
-- Python 3.6 (or later) with the following modules: numpy, scipy, vtk, pandas
+- Python 3.6 (or later) with the following modules: numpy, scipy, vtk, pandas and optimparallel (optional).
 - Experimental data, consisting in:
     - a macroscopic tensile curve (strain-stress values as a CSV file),
 	- SEM-DIC displacement measurements, stored as tabular data.
@@ -52,6 +52,7 @@ res = runOptim(config_file='myConfigFile.ini')
 ## Configuration file
 
 This file describes locations of data and parameters for optimization. It divides in sections (some of them are mandatory, other are not).
+See full examples in [example](example) folder.
 
 ### Mandatory sections
 #### [Initial Guess]
@@ -96,7 +97,7 @@ This section allows to use a parallel implementation of the L-BFGS-B minimizer [
 
 - **use parallel minimizer**: whether to use ``minimize_parallel``, instead of ``scipy.optimize.minimize`` (default is No)
 
-In addition, any keyword argument normaly passed to the ``parallel`` option of ``minimize_parallel`` can be defined in this section. See [the related documentation](https://github.com/florafauna/optimParallel-python/blob/8bf622be1431ba10fef1d795521a2b1d86307c9d/src/optimparallel.py#L170) for available options.
+In addition, any keyword argument normally passed to the ``parallel`` option of ``minimize_parallel`` can be defined in this section. See [the related documentation](https://github.com/florafauna/optimParallel-python/blob/8bf622be1431ba10fef1d795521a2b1d86307c9d/src/optimparallel.py#L170) for available options.
 
 #### [Slurm]
 
