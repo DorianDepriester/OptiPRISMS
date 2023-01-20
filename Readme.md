@@ -23,19 +23,14 @@ Records for each optimization loop will be stored in a log file, so that the use
 - Python 3.6 (or later) with the following modules: numpy, scipy, vtk, pandas and optimparallel (optional).
 - Experimental data, consisting in:
     - a macroscopic tensile curve (strain-stress values as a CSV file),
-	- SEM-DIC displacement measurements, stored as tabular data.
+	- SEM-DIC displacement measurements, stored as individual CSV files named sequencially (eg. "DIC_1.csv", "DIC_2.csv" and so on).
 	
-The latter must be formatted as column data, in this order:
+Each of these file must have tabular data, ordered this way:
 1. x coordinates of DIC points where DIC measurements are performed,
 2. y coordinates of DIC points where DIC measurements are performed,
-3. x displacements at 1st step,
-4. y displacements at 1st step,
-5. correlation coefficients at 1st step,
-6. x displacements at 2nd step,
-7. y displacements at 2nd step,
-8. correlation coefficients at 2nd step
-
-and so on.
+3. x displacements,
+4. y displacements,
+5. correlation coefficients at 1st step
 
 ## Step-by-step method to run optimization
 
@@ -71,7 +66,10 @@ Provide here starting values for the variables you want to optimize. The variabl
 
 #### [Experimental Data]
 
-- **DIC data**: path to text file with DIC measurements
+- **DIC data**: pattern describing the path to CSV files with DIC measurements (without step number nor extension). OptiPRISM will automatically 
+append the step number and the CSV extension to this parameters. For instance,
+if one wants to use files ``DIC_1.csv`` and ``DIC_2.csv``, this parameter should be
+set to ``DIC_``.
 - **tensile curve**: path to strain-stress values of tensile curve
 - **time steps** *(optional)*: increment numbers corresponding to each step of DIC measurements. If not set, they will inferred from option `set Tabular Time Output Table` in prm template.
 

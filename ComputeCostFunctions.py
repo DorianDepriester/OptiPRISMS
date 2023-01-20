@@ -27,36 +27,30 @@ def compute_kine_cost(result_folder, config):
         time_steps = np.array(output_table)/dt - 1
         time_steps = time_steps.astype('int')
 
-    # Read DIC data and check consistency with simulation parameters
-    dataDIC = np.loadtxt(DIC_data)
-    pts_DIC = dataDIC[:,:2]
-    good_nbr = (2 + 3*len(time_steps))
-    if dataDIC.shape[1] != good_nbr:
-        err_msg = 'The number of time steps ({}) is inconsistent with the number of columns in {} ({}, instead of {})'\
-            .format(len(time_steps), DIC_data, dataDIC.shape[1], good_nbr)
-        raise ValueError(err_msg)
-
     chi_u = 0
     n_steps = len(time_steps)
     for step, step_simu in enumerate(time_steps):
         pvtu_fname = "{}/solution-{:04}.pvtu".format(result_folder, step_simu)
         nodes, u_SIM = read_pvtu(pvtu_fname)
-    
         if nodes is None:
             # It seems that the simulation has failed, raise penalty value
             chi_u = float(cost_options['penalty'])
             n_steps = 1
             break
-            
         else:
+            # Read DIC data
+            DIC_step = '{}{}.csv'.format(DIC_data, str(step+1))
+            DIC_vals = np.loadtxt(DIC_step)
+            pts_DIC = DIC_vals[:, :2]
+            u_DIC = DIC_vals[:, 2:4]
+            C = DIC_vals[:, 4]
+
             # Associate each DIC measurement to a unique node
             u_SIM_tri, inside_mesh = triangular_projection(nodes, u_SIM, pts_DIC)
             
-            # Remove DIC locations which are too far from mesh nodes
+            # Remove DIC locations outside the RoI
             u_SIM_tri = u_SIM_tri[inside_mesh]
-            u_DIC = dataDIC[inside_mesh, (3*step+2):(3*step+4)]
-            C = dataDIC[inside_mesh, 3*step+4]
-            chi_u += kinematic_cost_function(u_SIM_tri[:, :2], u_DIC, weights=C)
+            chi_u += kinematic_cost_function(u_SIM_tri, u_DIC[inside_mesh], weights=C[inside_mesh])
   
     return chi_u/n_steps
 

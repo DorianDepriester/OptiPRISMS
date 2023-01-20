@@ -19,7 +19,7 @@ def kinematic_cost_function(u_FEM, u_DIC, weights=None):
     float
         Cost function
     """
-    delta_u = u_DIC-u_FEM
+    delta_u = u_DIC-u_FEM[:, :2]
     if weights is None:
         weights=np.ones(len(delta_u))
     else:
