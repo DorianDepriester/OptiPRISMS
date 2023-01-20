@@ -67,11 +67,12 @@ Provide here starting values for the variables you want to optimize. The variabl
 #### [Experimental Data]
 
 - **DIC data**: pattern describing the path to CSV files with DIC measurements (without step number nor extension). OptiPRISM will automatically 
-append the step number and the CSV extension to this parameters. For instance,
+append the step number and the CSV extension to this pattern. For instance,
 if one wants to use files ``DIC_1.csv`` and ``DIC_2.csv``, this parameter should be
 set to ``DIC_``.
 - **tensile curve**: path to strain-stress values of tensile curve
-- **time steps** *(optional)*: increment numbers corresponding to each step of DIC measurements. If not set, they will inferred from option `set Tabular Time Output Table` in prm template.
+- **time steps** *(optional)*: increment numbers corresponding to each step of DIC measurements. If not set, they will 
+be inferred from option `set Tabular Time Output Table` in prm file.
 
 #### [Cost Function]
 
