@@ -81,7 +81,7 @@ def optimize(config_file='Config.ini'):
     if len(ub) != len(x0):
         raise ValueError(error_msg.format('lower'))
 
-        # The minimizer uses absolute differences to compute the gradient. Hence
+    # The minimizer uses absolute differences to compute the gradient. Hence
     # it is a good habit to normalize the parameters so that the investigated 
     # space is an hypercube of size 1.
     x0n = (x0 - lb) / (ub - lb)
@@ -103,12 +103,13 @@ def optimize(config_file='Config.ini'):
 
     # Restore the optimized parameters into un-normalized form
     k = ub - lb
+    inv = 1 / k
     res.x = lb + res.x * k
-    res.jac = res.jac / k
+    res.jac = res.jac * inv
 
     # Plus, provide the estimated hessian
     h = np.linalg.inv(res.hess_inv.todense())
-    res.hess = h * np.outer(k, k)
+    res.hess = h * np.outer(inv, inv)
 
     return res
 
