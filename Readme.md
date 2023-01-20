@@ -30,7 +30,7 @@ Each of these file must have tabular data, ordered this way:
 2. y coordinates of DIC points where DIC measurements are performed,
 3. x displacements,
 4. y displacements,
-5. correlation coefficients at 1st step
+5. correlation coefficients (optional, see [Cost Function](#[cost function]) section)
 
 ## Step-by-step method to run optimization
 
@@ -78,6 +78,9 @@ be inferred from option `set Tabular Time Output Table` in prm file.
 
 - **weight on tensile curve**: weight to apply to the tensile curve in the overall cost function
 - **penalty**: penalty value to raise if the simulation fails
+- **weight by correlation coefficients**: if enabled, the kinematic cost function will weight the 
+displacement errors by the inverse of the correlation coefficients. The latter will
+be read from the 6th column of the DIC CSV files (as detailed in [Required Materials](#required-materials) section)
 
 #### [Log File]
 

@@ -43,15 +43,20 @@ def compute_kine_cost(result_folder, config):
             DIC_vals = np.loadtxt(DIC_step)
             pts_DIC = DIC_vals[:, :2]
             u_DIC = DIC_vals[:, 2:4]
-            C = DIC_vals[:, 4]
 
             # Associate each DIC measurement to a unique node
             u_SIM_tri, inside_mesh = triangular_projection(nodes, u_SIM, pts_DIC)
             
             # Remove DIC locations outside the RoI
             u_SIM_tri = u_SIM_tri[inside_mesh]
-            chi_u += kinematic_cost_function(u_SIM_tri, u_DIC[inside_mesh], weights=C[inside_mesh])
-  
+
+            wgt_str = 'weight by correlation coefficients'
+            if config.has_option('Cost Function', wgt_str) and config.getboolean('Cost Function', wgt_str):
+                C = DIC_vals[inside_mesh, 4]
+            else:
+                C = None
+            chi_u += kinematic_cost_function(u_SIM_tri, u_DIC[inside_mesh], weights=C)
+
     return chi_u/n_steps
 
 
