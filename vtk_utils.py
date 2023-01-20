@@ -8,6 +8,21 @@ from triangulate import triangular_projection
 
 
 def read_pvtu(filename):
+    """
+    Read node locations and node displacements from parallel vtu files (pvtu)
+
+    Parameters
+    ----------
+    filename : str
+        Path to pvtu file
+
+    Returns
+    -------
+    nodes : np.ndarray
+        m x 3 array of node coordinates. None if the file is not found.
+    u   : np.ndarray
+        m x 3 array of node displacements. None if the file is not found.
+    """
     reader = vtk.vtkXMLUnstructuredGridReader()
     pts = np.zeros(shape=(0, 2))
     u = np.zeros(shape=(0, 3))
