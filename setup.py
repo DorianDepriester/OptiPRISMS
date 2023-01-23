@@ -1,5 +1,8 @@
 from setuptools import setup
 
+with open("Readme.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name='OptiPRISMS',
     version='1.0.0',
@@ -10,6 +13,7 @@ setup(
     author='Dorian Depriester',
     author_email='dorian [dot] depriester [at] ensam [guess what] eu',
     description='Indentifies Crystal Plasticity (CP) parameters by inverse analyis based on CPFEM simulations performed using PRISMS-Plasticity',
+    long_description=long_description,
     install_requires=[
         'scipy',
         'numpy',
