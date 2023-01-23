@@ -14,6 +14,7 @@ setup(
     author_email='dorian [dot] depriester [at] ensam [guess what] eu',
     description='Indentifies Crystal Plasticity (CP) parameters by inverse analyis based on CPFEM simulations performed using PRISMS-Plasticity',
     long_description=long_description,
+    long_description_content_type="text/markdown",
     install_requires=[
         'scipy',
         'numpy',
