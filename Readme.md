@@ -23,9 +23,9 @@ Records for each optimization loop will be stored in a log file, so that the use
 - Python 3.6 (or later) with the following modules: numpy, scipy, vtk, pandas and optimparallel (optional).
 - Experimental data, consisting in:
     - a macroscopic tensile curve (strain-stress values as a CSV file),
-	- SEM-DIC displacement measurements, stored as individual CSV files named sequencially (eg. "DIC_1.csv", "DIC_2.csv" and so on).
+	- SEM-DIC displacement measurements, stored as individual CSV files named sequentially (eg. "DIC_1.csv", "DIC_2.csv" and so on).
 	
-Each of these file must have tabular data, ordered this way:
+Each of these files must have tabular data, ordered this way:
 1. x coordinates of DIC points where DIC measurements are performed,
 2. y coordinates of DIC points where DIC measurements are performed,
 3. x displacements,
