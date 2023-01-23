@@ -11,7 +11,7 @@ setup(
     url='https://github.com/DorianDepriester/OptiPRISMS',
     license='GNU Lesser General Public License v2.1',
     author='Dorian Depriester',
-    author_email='dorian [dot] depriester [at] ensam [guess what] eu',
+    author_email='dorian.depriester@ensam.eu',
     description='Indentifies Crystal Plasticity (CP) parameters by inverse analyis based on CPFEM simulations performed using PRISMS-Plasticity',
     long_description=long_description,
     long_description_content_type="text/markdown",
