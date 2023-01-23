@@ -4,7 +4,8 @@ Perform inverse analysis to retrieve Crystal Plasticity parameters used for CPFE
 
 ## How it works
 
-This program will optimize CP parameters in order to minimize a given cost function. At each step of the optimization process, it will:
+This program will optimize CP parameters in order to minimize a given cost function.
+At each step of the optimization process, it will:
 
 1. generate configuration files for PRISMS-Plasticity;
 2. run PRISMS-Plasticity from these files;
@@ -30,13 +31,13 @@ Each of these files must have tabular data, ordered this way:
 2. y coordinates of DIC points where DIC measurements are performed,
 3. x displacements,
 4. y displacements,
-5. correlation coefficients (optional, see [Cost Function](#[cost function]) section)
+5. correlation coefficients (optional, see [Cost Function](#cost-function) section)
 
 ## Step-by-step method to run optimization
 
 1. Check out the template files (under the eponymous folder) and give a proper name to every parameter you want to optimize. These names must be precessed by a "$" symbol (e.g. "$a" instead of "a").
 2. Be sure that common parameters (e.g. path to mesh file, time increment, etc.) in template files fit with your needs.
-3. Edit the [configuration file] to tune optimization-related parameters.
+3. Edit the [configuration file](example/Config_minimal.ini) to tune optimization-related parameters.
 4. With Python3, run the `optimize` function from `OptiPRISMS` module. E.g.:
 ```python
 from OptiPRISMS import optimize
