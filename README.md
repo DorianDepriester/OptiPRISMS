@@ -35,14 +35,16 @@ Each of these files must have tabular data, ordered this way:
 
 ## Step-by-step method to run optimization
 
-1. Check out the template files (under the eponymous folder) and give a proper name to every parameter you want to optimize. These names must be precessed by a "$" symbol (e.g. "$a" instead of "a").
-2. Be sure that common parameters (e.g. path to mesh file, time increment, etc.) in template files fit with your needs.
-3. Edit the [configuration file](example/Config_minimal.ini) to tune optimization-related parameters.
-4. With Python3, run the `optimize` function from `OptiPRISMS` module. E.g.:
+1. Create template files. They consist in usual configuration files (see [here](https://github.com/prisms-center/plasticity/blob/master/docs/PRISMS_plasticity_user_manual_V1_4_0.pdf) for details), where every value you want to optimize is given a variable name. These names must be precessed by a dollar symbol (``$``, e.g. ``$a`` instead of ``a``).
+2. Edit the configuration file to tune optimization-related parameters (see below for details or check out the [example](https://github.com/DorianDepriester/OptiPRISMS/tree/main/example) folder.
+3. With Python3, run the `optimize` function from `OptiPRISMS` module. E.g.:
 ```python
 from OptiPRISMS import optimize
 res = optimize(config_file='myConfigFile.ini')
 ```
+4. Then, wait a couple of days (or weeks...).
+
+In the meantime, you can track the progress of optimization by having a look on the [log file](#log-file).
 
 ## Configuration file
 
