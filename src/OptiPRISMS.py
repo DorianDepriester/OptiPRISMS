@@ -16,6 +16,9 @@ import pandas as pd
 from CfgGenerator import CfgGenerator
 from ComputeCostFunctions import compute_weighted_cost, unpack_str_list
 
+file_dir = os.path.dirname(__file__)
+version = '1.1.0'
+
 
 def parse_optional_param(config, section):
     if config.has_section(section):
@@ -51,6 +54,16 @@ def remove_data(path, debug=True):
                 print("Error: %s - %s." % (e.filename, e.strerror))
 
 
+def print_separator():
+    print('-------------------------------------------------------')
+
+
+def print_title(title):
+    print_separator()
+    print(title)
+    print_separator()
+
+
 def optimize(config_file='Config.ini'):
     """
     Run optimization loops.
@@ -69,6 +82,22 @@ def optimize(config_file='Config.ini'):
     # Read optimizer options from config file
     config = configparser.ConfigParser()
     config.read(config_file)
+
+    # Print splash screen
+    relative_path = "splash.txt"
+    full_path = os.path.join(file_dir, relative_path)
+    with open(full_path, 'r') as f:
+        print(f.read())
+    print('Version {}'.format(version))
+
+    # Print optimization options
+    print('')
+    print_title('Optimization options read from {}:'.format(config_file))
+    for each_section in config.sections():
+        print('[ {} ]'.format(each_section))
+        for (each_key, each_val) in config.items(each_section):
+            print('{}:{}'.format(each_key, each_val))
+        print_separator()
 
     # Infer the number of investigated parameters from the initial guess
     x0 = np.array([float(i) for i in config['Initial Guess'].values()])
@@ -99,7 +128,9 @@ def optimize(config_file='Config.ini'):
         module = importlib.import_module('scipy.optimize')
         minimizer = module.minimize
 
+    print('Launch optimization...')
     res = minimizer(run_and_compare, x0n, **kwargs)
+    print("...Done!")
 
     # Restore the optimized parameters into un-normalized form
     k = ub - lb
