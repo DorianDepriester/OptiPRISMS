@@ -14,8 +14,8 @@ def compute_kine_cost(result_folder, config):
     cost_options = config['Cost Function']
     DIC_data = Expe_data['DIC data']
     
-    if config.has_option('Experimental Data', 'time steps'):
-        time_steps = unpack_str_list(Expe_data['time steps'], dtype=int)
+    if config.has_option('Experimental Data', 'DIC time steps'):
+        dic_time_steps = unpack_str_list(Expe_data['DIC time steps'], dtype=int)
     else:
         # Read time steps from prm file template
         prm_file = result_folder + ".prm"
@@ -24,12 +24,12 @@ def compute_kine_cost(result_folder, config):
             config_template.read_file(itertools.chain(['[global]'], fp), source=prm_file)
         dt = float(config_template['global']['set Time increments'])
         output_table = unpack_str_list(config_template['global']['set Tabular Time Output Table'])
-        time_steps = np.array(output_table)/dt - 1
-        time_steps = time_steps.astype('int')
+        dic_time_steps = np.array(output_table)/dt - 1
+        dic_time_steps = dic_time_steps.astype('int')
 
     chi_u = 0
-    n_steps = len(time_steps)
-    for step, step_simu in enumerate(time_steps):
+    n_steps = len(dic_time_steps)
+    for step, step_simu in enumerate(dic_time_steps):
         pvtu_fname = "{}/solution-{:04}.pvtu".format(result_folder, step_simu)
         nodes, u_SIM = read_pvtu(pvtu_fname)
         if nodes is None:
