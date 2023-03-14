@@ -1,5 +1,8 @@
 import numpy as np
 from scipy.spatial import Delaunay
+from orix.quaternion.orientation import Orientation
+from orix.quaternion import Quaternion
+
 
 def matrix_projection(nodes, pts):
     """
@@ -78,3 +81,37 @@ def triangular_projection(nodes, vect_field, pts):
     """
     mat, inside_mesh = matrix_projection(nodes, pts)
     return mat.dot(vect_field), inside_mesh
+
+
+def project_orientation(ebsd_locations, ebsd_orientations, pts):
+    """
+    Given of field of orientations, measured at ebsd locations, compute apply triangular projection of requested
+    locations to estimate the local orientation at these points.
+
+    Parameters
+    ----------
+    ebsd_locations : numpy.ndarray
+        m x 2 table of coordinate where the orientations are measures (EBSD pixels)
+    ebsd_orientations : orix.quaternion.orientation.Orientation
+        array of length m of measured orientations
+    pts : numpy.array
+        p x 2 table of coordinates where one wants to projection the orientations
+
+    Returns
+    -------
+    orix.quaternion.orientation.Orientation
+        array of length p of projected orientations. The orientation is NaN if the requested point is outside the mesh.
+    """
+    mat, inside_mesh = matrix_projection(ebsd_locations, pts)
+    mat_red = mat[inside_mesh,:]
+    q_mean = np.ones((len(pts),4))*np.nan
+    q_mean_red = np.ones((len(mat_red), 4))
+    for i,weights in enumerate(mat_red):
+        o2 = ebsd_orientations.map_into_symmetry_reduced_zone()
+        q = o2.data.T
+        qq = (weights * q).dot(q.T)
+        w, v = np.linalg.eig(qq)
+        w_max = np.argmax(w)
+        q_mean_red[i] = v[:, w_max]
+    q_mean[inside_mesh,:] = q_mean_red
+    return Orientation(Quaternion(q_mean), ebsd_orientations.symmetry)
