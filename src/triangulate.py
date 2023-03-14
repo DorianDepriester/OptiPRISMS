@@ -23,6 +23,10 @@ def matrix_projection(nodes, pts):
     inside_mesh : numpy.array
         Array of bools indicating whether the requested points are in the mesh
     """
+    # If only one point is requested, treat it as a 2D array anyway
+    if len(np.array(pts).shape)==1:
+        pts = pts[np.newaxis, :]
+
     # Perform Delaunay triangulation and find in which triangles the pts belong to
     tri = Delaunay(nodes)
     triangle_ids = tri.find_simplex(pts)
