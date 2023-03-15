@@ -106,6 +106,9 @@ def project_orientation(ebsd_locations, ebsd_orientations, pts):
     orix.quaternion.orientation.Orientation
         array of length p of projected orientations. The orientation is NaN if the requested point is outside the mesh.
     """
+    if len(np.array(pts).shape)==1:
+        pts = pts[np.newaxis, :]
+
     mat, inside_mesh = matrix_projection(ebsd_locations, pts)
     mat_red = mat[inside_mesh,:]
     q_mean = np.ones((len(pts),4))*np.nan
