@@ -112,13 +112,11 @@ def project_orientation(ebsd_locations, ebsd_orientations, pts):
     mat, inside_mesh = matrix_projection(ebsd_locations, pts)
     mat_red = mat[inside_mesh,:]
     q_mean = np.ones((len(pts),4))*np.nan
-    q_mean_red = np.ones((len(mat_red), 4))
-    for i,weights in enumerate(mat_red):
-        o2 = ebsd_orientations.map_into_symmetry_reduced_zone()
-        q = o2.data.T
-        qq = (weights * q).dot(q.T)
-        w, v = np.linalg.eig(qq)
-        w_max = np.argmax(w)
-        q_mean_red[i] = v[:, w_max]
+    o2 = ebsd_orientations.map_into_symmetry_reduced_zone()
+    q = o2.data
+    qq = np.einsum('pi,ij,ik->pjk', mat_red, q, q)
+    w, v = np.linalg.eig(qq)
+    w_max = np.argmax(w, axis=1)
+    q_mean_red = v[np.arange(mat_red.shape[0]), :, w_max]
     q_mean[inside_mesh,:] = q_mean_red
     return Orientation(Quaternion(q_mean), ebsd_orientations.symmetry)
