@@ -33,10 +33,22 @@ Each of these files must have tabular data, ordered this way:
 4. y displacements,
 5. correlation coefficients (optional, see [Cost Function](#cost-function) section)
 
+## Installation
+You can install the latest release of OptiPRISMS with pip:
+```bash
+pip install OptiPRISMS
+```
+Otherwise, you can install the development version from sources:
+```bash
+git clone https://github.com/DorianDepriester/OptiPRISMS.git
+cd OptiPRISMS
+pip install --editable .
+```
+
 ## Step-by-step method to run optimization
 
 1. Create template files. They consist in usual configuration files (see [here](https://github.com/prisms-center/plasticity/blob/master/docs/PRISMS_plasticity_user_manual_V1_4_0.pdf) for details), where every value you want to optimize is given a variable name. These names must be precessed by a dollar symbol (``$``, e.g. ``$a`` instead of ``a``).
-2. Edit the configuration file to tune optimization-related parameters (see below for details or check out the [example](https://github.com/DorianDepriester/OptiPRISMS/tree/main/example) folder.
+2. Edit the configuration file to tune optimization-related parameters (see below for details or check out the [example](https://github.com/DorianDepriester/OptiPRISMS/tree/main/example) folder).
 3. With Python3, run the `optimize` function from `OptiPRISMS` module. E.g.:
 ```python
 from OptiPRISMS import optimize
