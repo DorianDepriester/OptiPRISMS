@@ -1,4 +1,4 @@
-# OptiPRISMS
+# OptiPRISMS ![PyPI - Downloads](https://img.shields.io/pypi/dm/OptiPRISMS) ![PyPI](https://img.shields.io/pypi/v/OptiPRISMS)
 
 Perform inverse analysis to retrieve Crystal Plasticity parameters used for CPFEM simulation through the PRISMS-Plasticity software [[1]](#prisms). This inverse analysis is done using data from in situ tensile tests and Scanning Electron Microscopy Digital Image Correlation (SEM-DIC).
 
