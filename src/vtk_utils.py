@@ -104,5 +104,36 @@ def merge_displacement_fields(mesh_vtk, input_pvtu, DIC_data, step):
     writer = vtk.vtkXMLUnstructuredGridWriter()
     writer.SetFileName("Displacement_error_{}.vtu".format(step))
     writer.SetInputData(mesh_new.VTKObject)
-    writer.Write()    
+    writer.Write()
+
+
+def create_vtu_from_field(mesh_vtk, locations, field, output_filename, field_name='My field'):
+    # Read mesh file and get node coordinates
+    reader = vtk.vtkGenericDataObjectReader()
+    reader.SetFileName(mesh_vtk)
+    reader.Update()
+    mesh = reader.GetOutput()
+    mesh_new = dsa.WrapDataObject(mesh)
+    points_mesh = vtk_to_numpy(mesh_new.GetPoints())
+
+    # Only keep nodes at the surface of interest
+    on_surface = points_mesh[:, 2] == 0.
+    point_mesh_surf = points_mesh[on_surface, :2]
+
+    # The field will be NaN everywhere, except on the surface of interest
+    n_pts = len(points_mesh)
+    if len(field.shape) == 1:
+        field = field[:, np.newaxis]
+    ndim = field.shape[1]
+    new_field = np.ones(shape=(n_pts, ndim)) * np.nan
+
+    # Map the given field onto the mesh
+    new_field[on_surface, :], _ = triangular_projection(locations, field, point_mesh_surf)
+
+    # Save displacement fields in vtu file
+    mesh_new.PointData.append(new_field, field_name)
+    writer = vtk.vtkXMLUnstructuredGridWriter()
+    writer.SetFileName(output_filename)
+    writer.SetInputData(mesh_new.VTKObject)
+    writer.Write()
     
