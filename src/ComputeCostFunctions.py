@@ -61,19 +61,19 @@ def compute_kine_cost(result_folder, config):
 
 
 def compute_stat_cost(result_folder, config):
+    # Read data from experimental tensile curve
     tensileCurve = config['Experimental Data']['tensile curve']
+    Exper_curve = np.loadtxt(tensileCurve)
+    eps_xx_expe = Exper_curve[:, 0]
+    Sxx_expe = Exper_curve[:, 1]
+
     try:
         stressstrain = np.loadtxt(result_folder + '/stressstrain.txt', skiprows=1)
-        
         # PRISMS-Plasticity returns the Green-Lagrangian strain
         Exx = stressstrain[:, 0]
         eps_xx_simu = -1+np.sqrt(1+2*Exx)   # Compute elongation from Exx
         Sxx_simu = stressstrain[:, 6]
-    
-        # Read data from experimental tensile curve
-        Exper_curve = np.loadtxt(tensileCurve)
-        eps_xx_expe = Exper_curve[:, 0]
-        Sxx_expe = Exper_curve[:, 1]
+
         return static_cost_function(eps_xx_expe, Sxx_expe, eps_xx_simu, Sxx_simu)
     except FileNotFoundError:
         return float(config['Cost Function']['penalty'])
