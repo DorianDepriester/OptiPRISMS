@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import configparser, itertools
 from costFunctions import kinematic_cost_function, static_cost_function, weighted_cost_function
 from triangulate import triangular_projection
@@ -75,7 +76,7 @@ def compute_stat_cost(result_folder, config):
     col_E = 'E' + 2 * tensile_dir
     col_sigma = 'T' + 2 * tensile_dir
     try:
-        stressstrain = np.loadtxt(result_folder + '/stressstrain.txt', skiprows=1)
+        stressstrain = pd.read_csv(result_folder + '/stressstrain.txt', sep='\t')
         gl_eps = stressstrain[col_E]
         elon_simu = -1 + np.sqrt(1 + 2 * gl_eps)  # Compute elongation from Green-Lagrangian strain
         stress_simu = stressstrain[col_sigma]
