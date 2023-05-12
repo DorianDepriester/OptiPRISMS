@@ -64,17 +64,22 @@ def compute_stat_cost(result_folder, config):
     # Read data from experimental tensile curve
     tensileCurve = config['Experimental Data']['tensile curve']
     Exper_curve = np.loadtxt(tensileCurve)
-    eps_xx_expe = Exper_curve[:, 0]
-    Sxx_expe = Exper_curve[:, 1]
+    elon_expe = Exper_curve[:, 0]
+    stress_expe = Exper_curve[:, 1]
 
+    # Fetch simulated tensile curve
+    if config.has_option('Experimental Data', 'tensile direction'):
+        tensile_dir = config['Experimental Data']['tensile direction'].lower()
+    else:
+        tensile_dir = 'x'
+    col_E = 'E' + 2 * tensile_dir
+    col_sigma = 'T' + 2 * tensile_dir
     try:
         stressstrain = np.loadtxt(result_folder + '/stressstrain.txt', skiprows=1)
-        # PRISMS-Plasticity returns the Green-Lagrangian strain
-        Exx = stressstrain[:, 0]
-        eps_xx_simu = -1+np.sqrt(1+2*Exx)   # Compute elongation from Exx
-        Sxx_simu = stressstrain[:, 6]
-
-        return static_cost_function(eps_xx_expe, Sxx_expe, eps_xx_simu, Sxx_simu)
+        gl_eps = stressstrain[col_E]
+        elon_simu = -1 + np.sqrt(1 + 2 * gl_eps)  # Compute elongation from Green-Lagrangian strain
+        stress_simu = stressstrain[col_sigma]
+        return static_cost_function(elon_expe, stress_expe, elon_simu, stress_simu)
     except FileNotFoundError:
         return float(config['Cost Function']['penalty'])
 
