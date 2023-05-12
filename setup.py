@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='OptiPRISMS',
-    version='1.0.5',
+    version='1.1.0',
     packages=[''],
     package_dir={'': 'src'},
     url='https://github.com/DorianDepriester/OptiPRISMS',
