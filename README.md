@@ -33,6 +33,22 @@ Each of these files must have tabular data, ordered this way:
 4. y displacements,
 5. correlation coefficients (optional, see [Cost Function](#cost-function) section)
 
+## Cite this project
+If you use this project, please cite the following paper:
+
+```bibtex
+@article{OptiPRISMS,
+title = {Crystal Plasticity simulations of in situ tensile tests: A two-step inverse method for identification of CP parameters, and assessment of CPFEM capabilities},
+journal = {International Journal of Plasticity},
+pages = {103695},
+year = {2023},
+issn = {0749-6419},
+doi = {https://doi.org/10.1016/j.ijplas.2023.103695},
+url = {https://www.sciencedirect.com/science/article/pii/S074964192300181X},
+author = {D. Depriester and J.P. Goulmy and L. Barrallier},
+}
+```
+
 ## Installation
 You can install the latest release of OptiPRISMS with pip:
 ```bash
