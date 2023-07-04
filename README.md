@@ -17,9 +17,11 @@ In order to generate the PRISMS configuration files, this software will parse *t
 
 Records for each optimization loop will be stored in a log file, so that the user can track the evolution of optimized parameters and cost functions. In addition, OptiPRISMS will use this file to avoid reruning preexisting simulations, so that the optimization can be stopped then resumed.
 
+Full description of the algorithm is provided in [[2]](#paper).
+
 ## Required materials
 
-- The mesh of the microstructure (in .msh format). One can use [MTEX2Gmsh](https://github.com/DorianDepriester/MTEX2Gmsh/blob/master/MTEX2prisms/MTEX2PRISMS.pdf) [[2]](#mtex2gmsh) to generate a conforming mesh directly from EBSD data.
+- The mesh of the microstructure (in .msh format). One can use [MTEX2Gmsh](https://github.com/DorianDepriester/MTEX2Gmsh/blob/master/MTEX2prisms/MTEX2PRISMS.pdf) [[3]](#mtex2gmsh) to generate a conforming mesh directly from EBSD data.
 - [PRISMS-Plasticity software](https://github.com/prisms-center/plasticity).
 - Python 3.6 (or later) with the following modules: numpy, scipy, vtk, pandas and optimparallel (optional).
 - Experimental data, consisting in:
@@ -34,7 +36,7 @@ Each of these files must have tabular data, ordered this way:
 5. correlation coefficients (optional, see [Cost Function](#cost-function) section)
 
 ## Cite this project
-If you use this project, please cite the following paper:
+If you use this project, please cite ref. [[2]](#paper). You can use the following BibTeX entry:
 
 ```bibtex
 @article{OptiPRISMS,
@@ -146,6 +148,8 @@ In addition, any keyword argument normally passed to the `parallel` option of `m
 ## References
 <a id="prisms">[1]</a> Yaghoobi et al., (2019). Prisms-plasticity: An open-source crystal plasticity finite element software. Computational Materials Science, 169:109078, https://doi.org/10.1016/j.commatsci.2019.109078
 
-<a id="mtex2gmsh">[2]</a> Depriester et al., (2020). MTEX2Gmsh: a tool for generating 2D meshes from EBSD data. Journal of Open Source Software, 5(52):2094, https://doi.org/10.21105/joss.02094
+<a id="paper">[2]</a> Depriester et al., (2023). Crystal Plasticity Simulations of in Situ Tensile Tests: A Two-Step Inverse Method for Identification of CP Parameters, and Assessment of CPFEM Capabilities. International Journal of Plasticity, https://doi.org/10.1016/j.ijplas.2023.103695
 
-<a id="optim_parallel">[3]</a> Gerber, F. and Furrer, R. (2019). optimParallel: An R package providing a parallel version of the L-BFGS-B optimization method, The R Journal, 11(1):352–358, http://doi.org/10.32614/RJ-2019-030
+<a id="mtex2gmsh">[3]</a> Depriester et al., (2020). MTEX2Gmsh: a tool for generating 2D meshes from EBSD data. Journal of Open Source Software, 5(52):2094, https://doi.org/10.21105/joss.02094
+
+<a id="optim_parallel">[4]</a> Gerber, F. and Furrer, R. (2019). optimParallel: An R package providing a parallel version of the L-BFGS-B optimization method, The R Journal, 11(1):352–358, http://doi.org/10.32614/RJ-2019-030
