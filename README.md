@@ -35,22 +35,6 @@ Each of these files must have tabular data, ordered this way:
 4. y displacements,
 5. correlation coefficients (optional, see [Cost Function](#cost-function) section)
 
-## Cite this project
-If you use this project, please cite ref. [[2]](#paper). You can use the following BibTeX entry:
-
-```bibtex
-@article{OptiPRISMS,
-title = {Crystal Plasticity simulations of in situ tensile tests: A two-step inverse method for identification of CP parameters, and assessment of CPFEM capabilities},
-journal = {International Journal of Plasticity},
-pages = {103695},
-year = {2023},
-issn = {0749-6419},
-doi = {https://doi.org/10.1016/j.ijplas.2023.103695},
-url = {https://www.sciencedirect.com/science/article/pii/S074964192300181X},
-author = {D. Depriester and J.P. Goulmy and L. Barrallier},
-}
-```
-
 ## Installation
 You can install the latest release of OptiPRISMS with pip:
 ```bash
@@ -144,6 +128,23 @@ In addition, any keyword argument normally passed to the `parallel` option of `m
 
 - **fake simulations**: If Yes, each simulation is not computed. The related commands are printed instead. Default is No.
 - **fake deletions**: Turn off automatic removal of simulation results (step 5 in [How it works](#how-it-works) section). Default is No.
+
+## Cite this project
+If you use this project, please cite ref. [[2]](#paper). You can use the following BibTeX entry:
+
+```bibtex
+@article{OptiPRISMS,
+title = {Crystal Plasticity simulations of in situ tensile tests: A two-step inverse method for identification of CP parameters, and assessment of CPFEM capabilities},
+journal = {International Journal of Plasticity},
+volume = {168},
+pages = {103695},
+year = {2023},
+issn = {0749-6419},
+doi = {https://doi.org/10.1016/j.ijplas.2023.103695},
+url = {https://www.sciencedirect.com/science/article/pii/S074964192300181X},
+author = {D. Depriester and J.P. Goulmy and L. Barrallier},
+}
+```
 
 ## References
 <a id="prisms">[1]</a> Yaghoobi et al., (2019). Prisms-plasticity: An open-source crystal plasticity finite element software. Computational Materials Science, 169:109078, https://doi.org/10.1016/j.commatsci.2019.109078
