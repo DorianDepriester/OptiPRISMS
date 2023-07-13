@@ -79,7 +79,7 @@ Provide here starting values for the variables you want to optimize. The variabl
 
 - **prm file**: path to the main parameter file template
 - **latent hardening ratio** : path to latent hardening ratio template
-- **path to prisms**: path to PRISMS-Plasticity executable file. This entry is not required if Slurm is used (see [\[Slurm\]] section).
+- **prisms command line**: path to PRISMS-Plasticity executable file. This entry is not required if Slurm is used (see [\[Slurm\]] section).
 
 #### [Experimental Data]
 
