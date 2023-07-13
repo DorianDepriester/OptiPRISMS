@@ -149,7 +149,7 @@ author = {D. Depriester and J.P. Goulmy and L. Barrallier},
 ## References
 <a id="prisms">[1]</a> Yaghoobi et al., (2019). Prisms-plasticity: An open-source crystal plasticity finite element software. Computational Materials Science, 169:109078, https://doi.org/10.1016/j.commatsci.2019.109078
 
-<a id="paper">[2]</a> Depriester et al., (2023). Crystal Plasticity Simulations of in Situ Tensile Tests: A Two-Step Inverse Method for Identification of CP Parameters, and Assessment of CPFEM Capabilities. International Journal of Plasticity, https://doi.org/10.1016/j.ijplas.2023.103695
+<a id="paper">[2]</a> Depriester et al., (2023). Crystal Plasticity Simulations of in Situ Tensile Tests: A Two-Step Inverse Method for Identification of CP Parameters, and Assessment of CPFEM Capabilities. International Journal of Plasticity, 168:103695, https://doi.org/10.1016/j.ijplas.2023.103695
 
 <a id="mtex2gmsh">[3]</a> Depriester et al., (2020). MTEX2Gmsh: a tool for generating 2D meshes from EBSD data. Journal of Open Source Software, 5(52):2094, https://doi.org/10.21105/joss.02094
 
